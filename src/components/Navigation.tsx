@@ -43,7 +43,7 @@ export default function Navigation() {
                     <div className="sm:hidden flex items-center">
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="text-muted hover:text-primary focus:outline-none"
+                            className="text-muted cursor-pointer hover:text-primary focus:outline-none"
                             aria-label="Toggle menu"
                         >
                             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

@@ -14,7 +14,22 @@
 }
 
 :root {
-  background-color: var(--color-secondary);
-  color: var(--color-text);
-  font-family: var(--font-sans);
+  font-family: var(--font-sans), sans-serif;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+button{
+  cursor: pointer;
 }

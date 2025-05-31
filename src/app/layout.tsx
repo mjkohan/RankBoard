@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="fa" dir="rtl" className={`${vazirmatn.variable} ${lalezar.variable}`}>
-        <body className="bg-gray-50  min-h-screen">
+        <body className="  min-h-screen">
         <Navigation />
         {children}
         </body>
