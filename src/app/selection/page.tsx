@@ -1,7 +1,7 @@
 'use client';
 
 import SortableSelectionList from '../../components/SortableSelectionList';
-import {useUniversityStore} from '@/store/universityStore';
+import {Major, SelectedMajor, University, useUniversityStore} from '@/store/universityStore';
 import {presets} from '@/lib/presets';
 
 export default function SelectionPage() {
@@ -52,11 +52,11 @@ export default function SelectionPage() {
                 }
 
                 const {universities, majors, selectedMajors} = parsed;
-
                 const isValid =
-                    universities.every((u: any) => typeof u.id === 'string' && typeof u.name === 'string') &&
-                    majors.every((m: any) => typeof m.id === 'string' && typeof m.name === 'string') &&
-                    selectedMajors.every((s: any) => typeof s.id === 'string' && typeof s.rank === 'number');
+                    (universities as University[]).every((u) => typeof u.id === 'string' && typeof u.name === 'string') &&
+                    (majors as Major[]).every((m) => typeof m.id === 'string' && typeof m.name === 'string') &&
+                    (selectedMajors as SelectedMajor[]).every((s) => typeof s.id === 'string' && typeof s.rank === 'number');
+
 
                 if (!isValid) {
                     alert('برخی از داده‌ها نامعتبر هستند.');
