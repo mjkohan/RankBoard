@@ -152,16 +152,16 @@ export const useUniversityStore = create<UniversityState>()(
                         ).values()
                     );
 
-                    const majors: Major[] = preset.map(({id, name, universityId}) => ({
+                    const majors: Major[] = preset.map(({id, name, universityId,capacity}) => ({
                         id,
                         name,
-                        universityId
+                        universityId,capacity
                     }));
 
                     return {
                         universities: uniqueUniversities,
                         majors,
-                        selectedMajors: preset
+                        //selectedMajors: preset
                     };
                 }),
 

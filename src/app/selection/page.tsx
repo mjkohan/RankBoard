@@ -3,6 +3,7 @@
 import SortableSelectionList from '../../components/SortableSelectionList';
 import {Major, SelectedMajor, University, useUniversityStore} from '@/store/universityStore';
 import {presets} from '@/lib/presets';
+import { useState } from 'react';
 
 export default function SelectionPage() {
     const {
@@ -13,6 +14,8 @@ export default function SelectionPage() {
         clearSelection,
         loadPreset
     } = useUniversityStore();
+    
+    const [searchQuery, setSearchQuery] = useState('');
 
 
     const handleExport = () => {
@@ -76,7 +79,16 @@ export default function SelectionPage() {
 
     const filteredMajors = majors.filter((major) => {
         const isAlreadySelected = selectedMajors.some((s) => s.id === major.id);
-        return !isAlreadySelected;
+        if (isAlreadySelected) return false;
+        
+        if (!searchQuery.trim()) return true;
+        
+        const university = universities.find(u => u.id === major.universityId);
+        const majorName = major.name.toLowerCase();
+        const universityName = university?.name.toLowerCase() || '';
+        const query = searchQuery.toLowerCase();
+        
+        return majorName.includes(query) || universityName.includes(query);
     });
 
 
@@ -146,6 +158,17 @@ export default function SelectionPage() {
                 <div className="lg:col-span-2 space-y-6">
                     <div className="card p-4 border rounded-xl shadow-sm bg-white">
                         <h2 className="text-xl font-semibold mb-4">رشته های انتخاب نشده</h2>
+                        
+                        <div className="mb-4">
+                            <input
+                                type="text"
+                                placeholder="جستجو در نام رشته یا دانشگاه..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                            />
+                        </div>
+                        
                         <div className="space-y-2 max-h-96 overflow-y-auto">
                             {filteredMajors.map((major) => {
                                 const university = universities.find(u => u.id === major.universityId);
@@ -172,7 +195,6 @@ export default function SelectionPage() {
                                     </div>
                                 );
                             })}
-
                         </div>
                     </div>
 
