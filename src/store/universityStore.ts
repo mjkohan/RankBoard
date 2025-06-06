@@ -152,10 +152,11 @@ export const useUniversityStore = create<UniversityState>()(
                         ).values()
                     );
 
-                    const majors: Major[] = preset.map(({id, name, universityId,capacity}) => ({
-                        id,
+                    const majors: Major[] = preset.map(({ id, name, universityId, capacity }) => ({
+                        id: convertPersianToEnglish(String(id)),
                         name,
-                        universityId,capacity
+                        universityId: convertPersianToEnglish(String(universityId)),
+                        capacity
                     }));
 
                     return {
@@ -172,3 +173,8 @@ export const useUniversityStore = create<UniversityState>()(
         }
     )
 );
+function convertPersianToEnglish(str: string): string {
+    return str.replace(/[۰-۹]/g, (char) =>
+        String.fromCharCode(char.charCodeAt(0) - 1728)
+    );
+}

@@ -86,9 +86,11 @@ export default function SelectionPage() {
         const university = universities.find(u => u.id === major.universityId);
         const majorName = major.name.toLowerCase();
         const universityName = university?.name.toLowerCase() || '';
+        const id = major.id
+
         const query = searchQuery.toLowerCase();
         
-        return majorName.includes(query) || universityName.includes(query);
+        return majorName.includes(query) || universityName.includes(query) || id.includes(query);
     });
 
 
@@ -173,13 +175,15 @@ export default function SelectionPage() {
                             {filteredMajors.map((major) => {
                                 const university = universities.find(u => u.id === major.universityId);
                                 const isSelected = selectedMajors.some(m => m.id === major.id);
-
+                                const isNight = major.name.includes('شبانه') || major.name.includes('نوبت')
+                                const isFunded = major.name.includes('بورس') || major.name.includes('مصاحبه')  || major.name.includes('پیوست')
+                                const bg = isNight ? 'bg-yellow-200' : isFunded ? 'bg-orange-200' : 'bg-green-200'
                                 return (
                                     <div key={major.id}
-                                         className="p-4 border rounded-md bg-gray-50 flex justify-between items-center">
+                                         className={"p-4 border rounded-md  flex justify-between items-center " + bg}>
                                         <div>
                                             <h3 className="font-medium">{major.name}</h3>
-                                            {university && <p className="text-sm text-muted">{university.name}</p>}
+                                            {university && <p className="text-sm text-muted">{university.name + '-' +major.id}</p>}
                                         </div>
                                         <button
                                             className={`btn px-4 py-2 rounded-md text-sm ${isSelected ? 'bg-gray-300' : 'bg-primary text-white hover:bg-primary-hover'}`}

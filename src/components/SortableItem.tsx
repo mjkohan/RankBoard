@@ -31,12 +31,14 @@ export function SortableItem({
     transform: CSS.Transform.toString(transform),
     transition,
   };
-  
+  const isNight = item.name.includes('شبانه') || item.name.includes('نوبت')
+  const isFunded = item.name.includes('بورس') || item.name.includes('مصاحبه') || item.name.includes('پیوست')
+  const bg = isNight ? 'bg-yellow-200' : isFunded ? 'bg-orange-200' : 'bg-green-200'
   return (
     <div
       ref={setNodeRef}
       style={style}
-      className="bg-white p-4 rounded-md border border-gray-200 shadow-sm flex items-center"
+      className={" p-4 rounded-md border border-gray-200 shadow-sm flex items-center "+ bg}
     >
       <div
         {...attributes}
@@ -50,7 +52,7 @@ export function SortableItem({
       
       <div className="flex-1 mr-4">
         <h4 className="font-medium">{item.name}</h4>
-        <p className="text-sm text-gray-500">{item.universityName}</p>
+        <p className="text-sm text-gray-500">{item.universityName+ '-' + item.id}</p>
       </div>
       
       <div className="flex items-center">
